@@ -16,16 +16,17 @@ public class MyPanel extends JPanel {
     private int x1, y1, x2, y2;
     private int flag, fill, dotted, undoflag;
     //BasicStroke b;
-    JButton linebtn, rectbtn, ovalbtn, undobtn, savebtn, openbtn;
-    
+    JButton linebtn, rectbtn, ovalbtn, undobtn, savebtn, openbtn, freeHandDraw;
+
     JComboBox colors;
-    Color color = Color.BLACK ;
-    
+    Color color = Color.BLACK;
+
     Checkbox fillckbox, dottedckbox;
     ArrayList<Geoshape> shapeslist = new ArrayList<>();
     Rect rect = new Rect();
     Line line = new Line();
     Oval oval = new Oval();
+    FreeHand freehand = new FreeHand();
 
     private String colorOptions[]
             = {"Gray", "Bule", "Green", "Yellow", "Cyne", "Magenta", "Red", "Black", "Oragen"};
@@ -47,6 +48,7 @@ public class MyPanel extends JPanel {
         fillckbox = new Checkbox("fill");
         dottedckbox = new Checkbox("dotted");
         colors = new JComboBox(colorOptions);
+        freeHandDraw = new JButton("Pencil");
 
         this.setFocusable(true);//مهم علشان مصدر  الليسنر هو البانيل(panel)
         /*The arrow operator is used to create lambda expressions, linking/separating parameters with the lambda body.
@@ -114,7 +116,6 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
 
             }
         });
-
         colors.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -125,6 +126,10 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                 }
             }
         });
+        freeHandDraw.addActionListener(e -> {
+            flag = 4;
+        }
+        );
         fillckbox.addItemListener(e -> fill = e.getStateChange());
         dottedckbox.addItemListener(e -> dotted = e.getStateChange());
         this.add(linebtn);
@@ -134,6 +139,7 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
         this.add(savebtn);
         this.add(openbtn);
         this.add(colors);
+        this.add(freeHandDraw);
         this.add(fillckbox);
         this.add(dottedckbox);
 
@@ -162,6 +168,8 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                         new Rect(x1, y1, x2, y2, fill, dotted, color);
                     case 3 ->
                         new Oval(x1, y1, x2, y2, fill, dotted, color);
+                    case 4 ->
+                        new FreeHand(x1, y1, x2, y2, fill, dotted, color);
                     default ->
                         null;
                 };
@@ -189,6 +197,7 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                 }
                 if (dotted == 1) {
                     line.dotted = 1;
+                    freehand.dotted = 1;
                 } else {
                     line.dotted = 0;
                 }
@@ -203,6 +212,8 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                 oval.sety1(y1, y2);
                 oval.setWidth(x1, x2);
                 oval.setLength(y1, y2);
+                freehand.addPoint(x2, y2);
+                
                 repaint();
             }
 
@@ -231,6 +242,8 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                     rect.draw(g);
                 case 3 ->
                     oval.draw(g);
+                case 4 ->
+                    freehand.draw(g);
             }
         }
     }
