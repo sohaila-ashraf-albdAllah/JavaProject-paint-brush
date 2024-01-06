@@ -10,8 +10,10 @@ import java.util.ArrayList;
 public class FreeHand extends Geoshape {
 
     Color color;
-    ArrayList<Integer> x = new ArrayList<>();
-    ArrayList<Integer> y = new ArrayList<>();
+    ArrayList<Integer> arrx1 = new ArrayList<>();
+    ArrayList<Integer> arry1 = new ArrayList<>();
+    ArrayList<Integer> arrx2 = new ArrayList<>();
+    ArrayList<Integer> arry2 = new ArrayList<>();
 
     public FreeHand() {
         super();
@@ -25,11 +27,14 @@ public class FreeHand extends Geoshape {
     @Override
     public void draw(Graphics g) {
         g.setColor(color);
-        x.add(x2);
-        y.add(y2);   
-        for (int i = 0; i < x.size() - 1; i++) 
+        arrx1.add(x1);
+        arry1.add(y1);
+        arrx2.add(x2);
+        arry2.add(y2);
+        for(int i = 0; i < arrx1.size(); i++)
         {
-            g.drawLine(x.get(i), y.get(i), x.get(i + 1), y.get(i + 1));
+            g.drawLine(arrx1.get(i), arry1.get(i), arrx2.get(i), arry2.get(i));
         }
+        
     }
 }

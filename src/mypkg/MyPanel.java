@@ -256,8 +256,6 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                     rect.draw(g);
                 case 3 ->
                     oval.draw(g);
-                case 4 ->
-                    freehand.draw(g);
             }
         }
     }
