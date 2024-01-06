@@ -13,6 +13,4 @@ public class MyFrame {
         f.setSize(700,400);
         f.setVisible(true);
     }
-
-
 }

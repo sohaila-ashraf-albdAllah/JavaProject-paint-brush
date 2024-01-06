@@ -16,7 +16,7 @@ public class MyPanel extends JPanel {
     private int x1, y1, x2, y2;
     private int flag, fill, dotted, undoflag;
     //BasicStroke b;
-    JButton linebtn, rectbtn, ovalbtn, undobtn, savebtn, openbtn, freeHandDraw;
+    JButton linebtn, rectbtn, ovalbtn, undobtn, savebtn, openbtn, freeHandDraw, erasebtn, clearAllbtn;
 
     JComboBox colors;
     Color color = Color.BLACK;
@@ -49,6 +49,8 @@ public class MyPanel extends JPanel {
         dottedckbox = new Checkbox("dotted");
         colors = new JComboBox(colorOptions);
         freeHandDraw = new JButton("Pencil");
+        erasebtn = new JButton("Erase");
+        clearAllbtn = new JButton("clear All");
 
         this.setFocusable(true);//مهم علشان مصدر  الليسنر هو البانيل(panel)
         /*The arrow operator is used to create lambda expressions, linking/separating parameters with the lambda body.
@@ -130,6 +132,16 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
             flag = 4;
         }
         );
+        erasebtn.addActionListener(e -> {
+            flag = 5;
+        }
+        );
+        clearAllbtn.addActionListener(e -> {
+            clearAll clear = new clearAll(shapeslist);
+            clear.clearPanel();
+            repaint();
+        }
+        );
         fillckbox.addItemListener(e -> fill = e.getStateChange());
         dottedckbox.addItemListener(e -> dotted = e.getStateChange());
         this.add(linebtn);
@@ -140,6 +152,8 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
         this.add(openbtn);
         this.add(colors);
         this.add(freeHandDraw);
+        this.add(erasebtn);
+        this.add(clearAllbtn);
         this.add(fillckbox);
         this.add(dottedckbox);
 
@@ -170,6 +184,8 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                         new Oval(x1, y1, x2, y2, fill, dotted, color);
                     case 4 ->
                         new FreeHand(x1, y1, x2, y2, fill, dotted, color);
+                    case 5 ->
+                        new Erase(x1, y1, x2, y2, fill, dotted, color);
                     default ->
                         null;
                 };
@@ -211,9 +227,7 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                 oval.setx1(x1, x2);
                 oval.sety1(y1, y2);
                 oval.setWidth(x1, x2);
-                oval.setLength(y1, y2);
-                freehand.addPoint(x2, y2);
-                
+                oval.setLength(y1, y2);             
                 repaint();
             }
 
