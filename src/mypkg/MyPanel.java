@@ -14,12 +14,12 @@ import static java.lang.Math.random;
 public class MyPanel extends JPanel {
 
     private int x1, y1, x2, y2;
-    private int flag, fill, dotted, undoflag;
+    private int shapeflag, fill, dotted, undoflag;
     //BasicStroke b;
     JButton linebtn, rectbtn, ovalbtn, undobtn, savebtn, openbtn, freeHandDraw, erasebtn, clearAllbtn;
 
     JComboBox colors;
-    Color color = Color.BLACK;
+    Color color;
 
     Checkbox fillckbox, dottedckbox;
     ArrayList<Geoshape> shapeslist = new ArrayList<>();
@@ -29,14 +29,14 @@ public class MyPanel extends JPanel {
     FreeHand freehand = new FreeHand();
 
     private String colorOptions[]
-            = {"Gray", "Bule", "Green", "Yellow", "Cyne", "Magenta", "Red", "Black", "Oragen"};
+            = {"Black","Gray", "Bule", "Green", "Yellow", "Cyne", "Magenta", "Red", "Orange"};
 
     private Color colorArray[]
-            = {Color.DARK_GRAY, Color.BLUE, Color.GREEN, Color.YELLOW, Color.cyan, Color.MAGENTA, Color.RED, Color.BLACK, Color.orange};
+            = {Color.BLACK,Color.GRAY, Color.BLUE, Color.GREEN, Color.YELLOW, Color.cyan, Color.MAGENTA, Color.RED, Color.orange};
 
     public MyPanel() {
         this.setBackground(Color.white);
-        flag = 0;
+        shapeflag = 0;
         fill = 0;
         undoflag = 0;
         linebtn = new JButton("Line");
@@ -61,15 +61,15 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
               public void actionPerformed(ActionEvent e){my implementation}
         }*/
         linebtn.addActionListener(e -> {
-            flag = 1;
+                    shapeflag = 1;
         }
         );
         rectbtn.addActionListener(e -> {
-            flag = 2;
+                    shapeflag = 2;
         }
         );
         ovalbtn.addActionListener(e -> {
-            flag = 3;
+                    shapeflag = 3;
         }
         );
         savebtn.addActionListener(new ActionListener() {
@@ -129,11 +129,11 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
             }
         });
         freeHandDraw.addActionListener(e -> {
-            flag = 4;
+                    shapeflag = 4;
         }
         );
         erasebtn.addActionListener(e -> {
-            flag = 5;
+                    shapeflag = 5;
         }
         );
         clearAllbtn.addActionListener(e -> {
@@ -164,18 +164,31 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
 
             @Override
             public void mousePressed(MouseEvent e) {
-                undoflag = 0;
                 System.out.println("pressed");
-                x1 = line.x1 = e.getX();
-                y1 = line.y1 = e.getY();
+                x1 = e.getX();
+                y1 = e.getY();
+                line.setx1(x1);
+                line.sety1(y1);
+                rect.setx1(x1);
+                rect.sety1(y1);
+                oval.setx1(x1);
+                oval.sety1(y1);
+                line.setcolor(color);
+                oval.setcolor(color);
+                rect.setcolor(color);
+                line.setdotted(dotted);
+                rect.setdotted(dotted);
+                oval.setdotted(dotted);
+                freehand.setdotted(dotted);
+                rect.setFill(fill);
+                oval.setFill(fill);
             }
-
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("released");
                 x2 = e.getX();
                 y2 = e.getY();
-                Geoshape shape = switch (flag) {
+                Geoshape shape = switch (shapeflag) {
                     case 1 ->
                         new Line(x1, y1, x2, y2, dotted, color);
                     case 2 ->
@@ -206,28 +219,18 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
         this.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (fill == 1) {
-                    rect.fill = oval.fill = 1;
-                } else {
-                    rect.fill = oval.fill = 0;
-                }
-                if (dotted == 1) {
-                    line.dotted = 1;
-                    freehand.dotted = 1;
-                } else {
-                    line.dotted = 0;
-                }
+
                 System.out.println("dragged");
-                x2 = line.x2 = e.getX();
-                y2 = line.y2 = e.getY();
-                rect.setx1(x1, x2);
-                rect.sety1(y1, y2);
-                rect.setWidth(x1, x2);
-                rect.setLength(y1, y2);
-                oval.setx1(x1, x2);
-                oval.sety1(y1, y2);
-                oval.setWidth(x1, x2);
-                oval.setLength(y1, y2);             
+                x2 = e.getX();
+                y2 =  e.getY();
+                line.setx2(x2);
+                line.sety2(y2);
+                rect.setx2(x2);
+                rect.sety2(y2);
+                oval.setx2(x2);
+                oval.sety2(y2);
+
+
                 repaint();
             }
 
@@ -240,16 +243,15 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.black);
         //g.drawImage(image, 10, 10, this);
+
 
         for (Geoshape shape : shapeslist) {
             shape.draw(g);
-            // System.out.println(dotted);
         }
         System.out.println(undoflag);
         if (undoflag == 0) {
-            switch (flag) {
+            switch (shapeflag) {
                 case 1 ->
                     line.draw(g);
                 case 2 ->
@@ -257,6 +259,9 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                 case 3 ->
                     oval.draw(g);
             }
+        }
+        if(undoflag==1){
+            undoflag=0;
         }
     }
 }

@@ -10,7 +10,7 @@ public class MyFrame {
         MyPanel ls = new MyPanel();
         f.setTitle("Paint Brush");
         f.setContentPane(ls);
-        f.setSize(700,400);
+        f.setSize(900,600);
         f.setVisible(true);
     }
 }

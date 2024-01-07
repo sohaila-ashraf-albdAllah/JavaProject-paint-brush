@@ -19,6 +19,7 @@ public class Erase extends Geoshape {
     public void draw(Graphics g) 
     {
         g.setColor(Color.WHITE);
-        g.fillRect(x1, y1, 50, 50);
+        g.fillRect(x1, y1, 30, 30);
     }
+
 }

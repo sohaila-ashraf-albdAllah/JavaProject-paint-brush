@@ -3,47 +3,71 @@ package mypkg;
 import java.awt.*;
 
  class  Rect extends Geoshape{
-    int width;
-    int length;
-    int fill;
+   private   int width,length,xstart,ystart,fill;
+
     Color color;
 
     Rect(){super();
         width=0;
-        length=0;}
+        length=0;
+        xstart=ystart=0;}
     Rect(int x1,int y1,int x2,int y2,int fill,int dotted, Color col){
         super(x1,y1,x2,y2,dotted, col);
-        this.x1=Math.min(x1,x2);
-        this.y1=Math.min(y1,y2);
+        this.xstart=Math.min(x1,x2);
+        this.ystart=Math.min(y1,y2);
         width=Math.abs(x2-x1);
         length=Math.abs(y2-y1);
         this.fill=fill;
-        color = col;
     }
-    void setx1(int x1,int x2){
-        this.x1=Math.min(x1,x2);
+     void setFill(int fill){
+         this.fill=fill;
+     }
+      private void setxstart(){
+        xstart=Math.min(getx2(),getx1());
     }
-    void sety1(int y1,int y2){
-        this.y1=Math.min(y1,y2);
-    }
-
-
-    void setWidth(int x1,int x2){
-        width=Math.abs(x2-x1);
-    }
-    void setLength(int y1,int y2){
-        length=Math.abs(y2-y1);
+    private  void setystart(){
+        ystart=Math.min(gety2(),gety1());
     }
 
-    @Override
-    public void draw(Graphics g) {
-        g.setColor(color);
-        if(fill==1){
-            g.fillRect(x1,y1,width,length);
-        }
-        else{
-            g.drawRect(x1,y1,width,length);}
+
+     private void setWidth(){
+        width=Math.abs(getx2()-getx1());
     }
+     private void setLength(){
+        length=Math.abs(gety2()-gety1());
+    }
+
+     @Override
+     public void draw(Graphics g) {
+         setxstart();
+         setystart();
+         setWidth();
+         setLength();
+         g.setColor(col);
+
+         if(dotted==1){
+             g2d = (Graphics2D) g;
+             float[] dash1 = { 2f, 0f,2f};
+             BasicStroke bs1 = new BasicStroke(1,
+                     BasicStroke.CAP_BUTT,
+                     BasicStroke.JOIN_ROUND,
+                     1.0f,
+                     dash1,
+                     2f);
+             g2d.setStroke(bs1);
+             g2d.drawRect(xstart,ystart,width,length);
+
+             g2d.setStroke(new BasicStroke());//----->علشان ارجعه solid
+
+         }else{
+
+             g.drawRect(xstart,ystart,width,length);
+         }
+         if(fill==1){
+             g.fillRect(xstart,ystart,width,length);
+
+         }
+     }
 
 
 }
