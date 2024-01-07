@@ -14,7 +14,7 @@ import static java.lang.Math.random;
 public class MyPanel extends JPanel {
 
     private int x1, y1, x2, y2;
-    private int shapeflag, fill, dotted, undoflag;
+    private int shapeflag, fill, dotted, undoflag,clearallflag;
     //BasicStroke b;
     JButton linebtn, rectbtn, ovalbtn, undobtn, savebtn, openbtn, freeHandDraw, erasebtn, clearAllbtn;
 
@@ -23,6 +23,8 @@ public class MyPanel extends JPanel {
 
     Checkbox fillckbox, dottedckbox;
     ArrayList<Geoshape> shapeslist = new ArrayList<>();
+    ArrayList<Geoshape> shapescopy = new ArrayList<>();
+
     Rect rect = new Rect();
     Line line = new Line();
     Oval oval = new Oval();
@@ -39,6 +41,7 @@ public class MyPanel extends JPanel {
         shapeflag = 0;
         fill = 0;
         undoflag = 0;
+        clearallflag=0;
         linebtn = new JButton("Line");
         rectbtn = new JButton("Rectangle");
         ovalbtn = new JButton("Oval");
@@ -110,6 +113,9 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
             @Override
             public void actionPerformed(ActionEvent e) {
                 undoflag = 1;
+                if(clearallflag==1){
+                    repaint();
+                }
                 if (shapeslist.size() > 0) {
                     System.out.println(shapeslist.size());
                     shapeslist.remove((shapeslist.size()) - 1);
@@ -137,6 +143,8 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
         }
         );
         clearAllbtn.addActionListener(e -> {
+            clearallflag=1;
+            shapescopy=(ArrayList)shapeslist.clone();//copy arraylist
             clearAll clear = new clearAll(shapeslist);
             clear.clearPanel();
             repaint();
@@ -247,12 +255,18 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
         super.paintComponent(g);
         //g.drawImage(image, 10, 10, this);
 
-
+        if((clearallflag==1)&&(undoflag==1)){
+            shapeslist=(ArrayList)shapescopy.clone();
+            for (Geoshape shape : shapescopy) {
+                shape.draw(g);
+            }
+            clearallflag=0;
+        }
         for (Geoshape shape : shapeslist) {
             shape.draw(g);
         }
         System.out.println(undoflag);
-        if (undoflag == 0) {
+        if (undoflag == 0&&clearallflag==0) {
             switch (shapeflag) {
                 case 1 ->
                     line.draw(g);

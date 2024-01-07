@@ -22,20 +22,20 @@ import java.awt.*;
      void setFill(int fill){
          this.fill=fill;
      }
-      private void setxstart(){
-        xstart=Math.min(getx2(),getx1());
-    }
-    private  void setystart(){
-        ystart=Math.min(gety2(),gety1());
-    }
+     private void setxstart(){
+         xstart=Math.min(x2,x1);
+     }
+     private  void setystart(){
+         ystart=Math.min(y2,y1);
+     }
 
 
      private void setWidth(){
-        width=Math.abs(getx2()-getx1());
-    }
+         width=Math.abs(x2-x1);
+     }
      private void setLength(){
-        length=Math.abs(gety2()-gety1());
-    }
+         length=Math.abs(y2-y1);
+     }
 
      @Override
      public void draw(Graphics g) {

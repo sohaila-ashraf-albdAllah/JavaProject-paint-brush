@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5728722a-a8c9-4591-98b1-9dbfa28fcbab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/javaproject/JavaProject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mypkg/Erase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mypkg/Erase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mypkg/Geoshape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mypkg/Geoshape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mypkg/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mypkg/Line.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mypkg/MyFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mypkg/MyFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mypkg/MyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mypkg/MyPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mypkg/Oval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mypkg/Oval.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mypkg/Rect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mypkg/Rect.java" afterDir="false" />
@@ -27,13 +23,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Saiko/Downloads/iti/java/JavaProject-paint-brush"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Saiko/Downloads/iti/java/New folder/JavaProject-paint-brush&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
