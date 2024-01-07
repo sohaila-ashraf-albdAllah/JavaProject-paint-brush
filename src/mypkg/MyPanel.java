@@ -182,6 +182,9 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                 freehand.setdotted(dotted);
                 rect.setFill(fill);
                 oval.setFill(fill);
+                
+                //reset freehand to avoid connecting lines on a new press
+                freehand = new FreeHand(x1, y1, x1, y1, fill, dotted, color);
             }
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -196,7 +199,7 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                     case 3 ->
                         new Oval(x1, y1, x2, y2, fill, dotted, color);
                     case 4 ->
-                        new FreeHand(x1, y1, x2, y2, fill, dotted, color);
+                        freehand;  // Use the updated freehand shape
                     case 5 ->
                         new Erase(x1, y1, x2, y2, fill, dotted, color);
                     default ->
@@ -229,8 +232,7 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
                 rect.sety2(y2);
                 oval.setx2(x2);
                 oval.sety2(y2);
-
-
+                freehand.addPoint(x2, y2);
                 repaint();
             }
 
