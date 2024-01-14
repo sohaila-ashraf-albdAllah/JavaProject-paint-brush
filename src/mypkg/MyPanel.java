@@ -173,6 +173,9 @@ syntax: (parameters) -> {expression}; It is also an efficient way of implementin
             @Override
             public void mousePressed(MouseEvent e) {
                 System.out.println("pressed");
+                if(clearallflag==1){
+                    clearallflag=0;  
+                }
                 x1 = e.getX();
                 y1 = e.getY();
                 line.setx1(x1);
